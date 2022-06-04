@@ -2,7 +2,7 @@ from data import DATA,CONSTANTE_GRAVITACIONAL
 import random
 #EJERCICIO 1
 # A partir de la segunda ley de movimiento de Newton y 
-# la ley de gravitación universal realice un código que 
+# la ley de gravitacion universal realice un codigo que 
 # permita determinar el valor de la gravedad para 
 # cualquier planeta del sistema planetario solar.
 

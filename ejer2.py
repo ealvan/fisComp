@@ -4,7 +4,7 @@ from data import DATA,CONSTANTE_GRAVITACIONAL
 from ejer1 import getGravity
 
 # EJERCICIO 2:
-#  Del problema anterior realice un código 
+#  Del problema anterior realice un codigo 
 #  para poder determinar la densidad de 
 #  cualquier planeta del sistema planetario solar.
 

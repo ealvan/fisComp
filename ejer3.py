@@ -2,10 +2,9 @@ import math
 #Ley de kepler #2
 #areas iguales en tiempos iguales
 from data import CONSTANTE_GRAVITACIONAL, DATA
-from ejer4 import getPeriodPlanet
 
-# Implementar un código computacional 
-# para la solución de la segunda
+# Implementar un codigo computacional 
+# para la solucion de la segunda
 # ley de Kepler.
 
 #FORMULAS
@@ -31,7 +30,6 @@ def getAngularMomentum(planet):
     planet_data = DATA[planet]
     I = planet_data["masa"]*(planet_data["sunDistancia"])**2
     pi = math.pi
-    period = getPeriodPlanet(planet)
     # period = period*60*60*24
     w = (2*pi)/(planet_data["periodo"]*24*60*60)
     L = I*w
@@ -60,14 +58,14 @@ masa = {masa} kg
 w = {float(f"{w:.3e}")} rad/s
 r = {distanciaSol} metros
 
-Respuesta => Área({planet}) en {time} segs = {round(area,4)} m^2
+Respuesta => Area({planet}) en {time} segs = {round(area,4)} m^2
 ---------------------------------------------------
 """    
     print(str1)
 
 def main():
     print("FORMULA: \nA = (L / 2*Mp)*t")
-    print("Descripción:\nCalcula cuanto de área barre el planeta\nen \"t\" segundos")
+    print("Descripcion:\nCalcula cuanto de area barre el planeta\nen \"t\" segundos")
     for k in DATA.keys():
         h = input(f"Ingrese el tiempo que recorrera(planeta {k}):")
         if(h == "exit"):
@@ -87,7 +85,7 @@ def main():
         momentum = getAngularMomentum(planet)
         area = getAreaKepler2law(planet,1)
         print(f"{planet}/L es: {float('{:0.2e}'.format(momentum))} (kg*m^2)/s")
-        print(f"{planet}/Área es: {round(area,3)} m^2\n")
+        print(f"{planet}/Area es: {round(area,3)} m^2\n")
 
 if __name__ == "__main__":
     main()
