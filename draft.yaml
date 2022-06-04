@@ -6,3 +6,57 @@ El planeta jupiter tiene una gravedad de 25.909630360021175 m/s^2
 El planeta saturno tiene una gravedad de 11.181762945423301 m/s^2
 *El planeta urano tiene una gravedad de 9.004483309732793 m/s^2
 *El planeta neptuno tiene una gravedad de 11.269621764335628 m/s^2
+---------------------------------------------------------------------------------
+Titulo:
+Nombre:
+Profesor:
+
+
+Ejercicio 1:
+A partir de la segunda ley de movimiento de Newton 
+y la ley de gravitación universal realice un código
+que permita determinar el valor de la gravedad para 
+cualquier planeta del sistema planetario solar.
+
+Análisis:
+
+
+
+Programación:
+
+Resultados:
+
+
+Ejercicio 2:
+Del problema anterior realice un código para poder 
+determinar la densidad de cualquier planeta del 
+sistema planetario solar.
+
+Análisis:
+
+Programación:
+
+Resultados:
+
+Ejercicio 3:
+Implementar un código computacional para la 
+solución de la segunda ley de Kepler.
+
+Análisis:
+
+Programación:
+
+Resultados:
+
+Ejercicio 4:
+Implementar un código computacional para 
+determinar la solución de la tercera ley de 
+Kepler para cualquier planeta que describa una órbita elíptica.
+
+Análisis:
+
+Programación:
+
+Resultados:
+
+
