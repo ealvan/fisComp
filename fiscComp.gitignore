@@ -8,3 +8,6 @@ __pycache__/
 *.log
 *.PNG
 images/
+# COMMANDS USEFUL
+# git update-index --skip-worktree images/  # SKIP images/
+
