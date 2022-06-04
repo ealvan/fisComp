@@ -1,0 +1,185 @@
+*El planeta tierra tiene una gravedad de 9.804274417531717 m/s^2
+*El planeta marte tiene una gravedad de 3.7109544128332415 m/s^2
+**El planeta mercurio tiene una gravedad de 3.6822948381208795 m/s^2
+*El planeta venus tiene una gravedad de 8.866418978688522 m/s^2
+El planeta jupiter tiene una gravedad de 25.909630360021175 m/s^2
+El planeta saturno tiene una gravedad de 11.181762945423301 m/s^2
+*El planeta urano tiene una gravedad de 9.004483309732793 m/s^2
+*El planeta neptuno tiene una gravedad de 11.269621764335628 m/s^2
+---------------------------------------------------------------------------------
+Titulo:
+Nombre:
+Profesor:
+
+
+Ejercicio 1:
+A partir de la segunda ley de movimiento de Newton 
+y la ley de gravitación universal realice un código
+que permita determinar el valor de la gravedad para 
+cualquier planeta del sistema planetario solar.
+
+Análisis:
+Para obtener la gravedad en cualquier planeta del sistema solar, se debe igualar
+la segunda ley de newton y la ley de fuerza gravitacional entre dos cuerpos, pues en este
+caso la fuerza de ambas formulas son las mismas.
+A continuación se muestra la igualdad y el despeje:
+#include images/ejer1fc.jpg
+
+Programación:
+Para la programación se obto por recolectar datos de los planetas.
+Para este caso en especifico se recolecto la masa y el radio de cada planeta.
+Además se puso la constante universal de gravitación.
+
+Todo los datos anteriores(masa,radio) se pusieron en un archivo llamado data.py, este archivo
+contiene un diccionario en python con todos los datos(este archivo se usara continuamente
+para los siguiente ejercicios).
+
+#show data.py in listing code
+
+
+Finalmente tambien se agrego la condición:
+    # if h > radio:
+    #     print("No puede ser mayor al radio del planeta")
+    #     exit(1)#salir del programa
+
+A continuacion, el siguiente archivo usa el data.py para obtener los calculos.
+
+#show ejer1.py en listing code
+
+Resultados:
+A continuación, se muestran los calculos hechos por el algoritmo.
+
+#show e1_1.jpg
+
+En la siguiente imagen, se muestra una comparación con datos reales:
+#show e1_4.jpg
+
+Como se aprecia en la anterior figura, se muestra una gran aproximación
+con las gravedades reales de cada planeta.
+################################################################################
+################################################################################
+################################################################################
+Ejercicio 2:
+Del problema anterior realice un código para poder 
+determinar la densidad de cualquier planeta del 
+sistema planetario solar.
+
+Análisis:
+En el siguiente analisis, se despeja la variable densidad.
+
+Sabiendo que:
+#print equation densidad = masa/volumen
+#print equation g = (G*m)/(r^2)
+
+Podemos despejar lo siguiente:
+#show image ejer2fc.jpg
+
+A continuacion la formula:
+#equation of densidad = ley de gravitacion en vale al peso
+
+Programación:
+En el siguiente codigo, se muestra como se implemento el codigo en el archivo ejer2.py.
+
+#show ejer2.py listing code.
+
+Resultados:
+A continuacion se muestra los resultados obtenidos por el algoritmo:
+
+#show e2-(123).jpg
+
+En la siguiente imagen se hace una comparacion con datos reales.
+
+#shoe e2-[3].jpg con datosreales.jpg
+
+Como se puede ver los datos obtenidos son muy aproximados a los reales de las 
+densidades de cada planeta son muy aproximados.
+################################################################################
+################################################################################
+################################################################################
+Ejercicio 3:
+Implementar un código computacional para la 
+solución de la segunda ley de Kepler.
+
+Análisis:
+La segunda ley de kepler nos dice que un planeta
+en tiempos iguales barren un area igual.
+
+Esto significa, un planeta cuando esta mas cerca del Sol recorre mas distancia angular en el mismo tiempo,
+mientras que el mismo planeta lejos del sol barre la misma area en el mismo tiempo, debido a que
+la distancia entre el sol y el planeta es lo suficientemente grande para barrer la misma área.
+
+Las siguientes ecuaciónes que se presenta se llama 
+momento de Inercia y velocidad angular:
+
+#I = M*R^2
+#w = (2*pi)/(1 año en segundos del planeta)
+
+Y el momento angular del planeta con respecto al Sol es:
+
+#L = I*w
+
+A continuacion, se ve como obtener el Area barrida por 
+un planeta con respecto al tiempo:
+
+#show ejer3fc.jpg
+
+La formula de la 2da ley de Kepler es:
+
+#A = (L/2*Mp)*t
+
+Donde Mp es la masa del planeta, t es el tiempo y L el momento angular del planeta con respecto al Sol.
+
+Programación:
+En este caso se uso el archivo data.py, de este archivo usamos
+el periodo de un planeta(debemos convertirlo a segundos), 
+este nos servira para obtener "w" con mucha más exactitud, que es la velocidad
+angular.
+
+A continuación se muestra la implementación:
+#show ejer3.py listing code
+
+Resultados:
+Los resultados del momento angular y los de el Area recorrida se
+muestran en las siguientes imágenes:
+
+#show e3_{1234}.jpg
+
+A continuacion se muestra una comparación entre el momento angular
+de por planeta real y el que calculamos:
+#show e3_{4}.jpg y una real3.jpg
+
+Como se vio, las aproximaciones entre lo calculado y lo real, son muy aproximadas.
+################################################################################
+################################################################################
+################################################################################
+Ejercicio 4:
+Implementar un código computacional para 
+determinar la solución de la tercera ley de 
+Kepler para cualquier planeta que describa una órbita elíptica.
+
+Análisis:
+La 3ra ley de Kepler nos indica como obtener el periodo de un cuerpo alrededor de otro.
+En este problema calcularemos los periodos de los planetas alrededor del Sol y comprobaremos
+nuestros valores con los reales, para ver la proximidad de nuestros calculos.
+
+La 3ra Ley de Kepler es:
+# equation T^2 = K*R^3
+Tomando en cuenta que K es igual a:
+K = (4*pi^2)/GM_s
+
+A continuación integrando estas dos ecuaciones, se muestra la resolución
+en la siguiente imagen:
+#show image ejer4fc.jpg
+
+Programación:
+Para la implementación de las formulas anteriores, se decidio tener una función llamada 
+getPeriodPlanet(), este se encargara de obtener los datos del archivo data.py y devolver
+el periodo para cada planeta.
+
+A continuación se muestra el codigo de implementación:
+
+Resultados:
+Los resultados se muestran a continuación:
+
+A continuación, se muestra una comparación entre
+los calculos y datos reales de los periodos.
