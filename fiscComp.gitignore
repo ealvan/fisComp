@@ -4,3 +4,5 @@ __pycache__/
 *.png
 *.mp3
 *.jpg
+*.gz
+*.log
