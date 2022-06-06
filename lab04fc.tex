@@ -22,7 +22,7 @@
 \setlength{\extrarowheight}{0.1cm}
 %------------------------------------------
 \sbox{\mytabularheadertitle}{%
-  \begin{minipage}{.42\textwidth}
+  \begin{minipage}{.6\textwidth}
     \begin{center}
         \bfseries \footnotesize  UNIVERSIDAD NACIONAL DE SAN AGUSTIN\\
         FACULTAD DE INGENIERÍA DE PRODUCCIÓN Y SERVICIOS\\
@@ -34,7 +34,7 @@
 \sbox{\mytabularheader}{%
     \begin{minipage}{\textwidth}
         \centering
-        \begin{tabular}{cp{8cm}c}
+        \begin{tabular}{cp{10cm}c}
             \includegraphics[scale=0.3]{epis_logo.png} & 
             \usebox{\mytabularheadertitle} &
             \includegraphics[scale=0.05]{abet_logo.png} \\
@@ -55,7 +55,7 @@
 \lstset{language=Python,frame=single, firstnumber=1,basicstyle=\footnotesize,numbers=left,showspaces=false,showstringspaces=false}    
     \begin{figure}
         \centering
-        \includegraphics[scale=0.3]{tableabet}
+        \includegraphics[scale=0.7]{table04word}
     \end{figure}    
     
     \title{Laboratorio 04.}
@@ -194,8 +194,8 @@ if h > radio:
             \end{minipage}        
         \end{tabular}
     \end{table}
-    Como se puede ver los datos obtenidos son muy aproximados a los reales de las  
-    densidades de cada planeta son muy aproximados.
+    \\
+    Como se puede ver los datos obtenidos son muy aproximados a los datos reales de la densidades de cada planeta.
 %%------------------------------EJERCICIO 3----------------------------------
     \section{Problema 3}
     Implementar un código computacional para la 
@@ -267,23 +267,24 @@ if h > radio:
 
     A continuación se muestra una comparación entre el momento angular
     de por planeta real y el que calculamos:
-    \begin{table}[!htbp]
+    \newpage
+    \begin{table}[htbp]
         \centering
         \begin{tabular}{cc}
             \begin{minipage}{.3\textwidth}
-                \includegraphics[width=\linewidth]{e3_3}
+                \includegraphics[width=\linewidth]{e3_4}
             \end{minipage}&\begin{minipage}{.3\textwidth}
                 \includegraphics[width=\linewidth]{e3real}
             \end{minipage}
         \end{tabular}
     \end{table}
     Como se vio, las aproximaciones entre lo calculado y lo real, son muy aproximadas.
-    
     \section{Problema 4}
     Implementar un código computacional para 
     determinar la solución de la tercera ley de 
     Kepler para cualquier planeta que describa una órbita elíptica.
-    \section{Análisis}
+    
+    \subsection{Análisis}
     La 3ra ley de Kepler nos indica como obtener el periodo de un cuerpo alrededor de otro.
     En este problema calcularemos los periodos de los planetas alrededor del Sol y comprobaremos
     nuestros valores con los reales, para ver la proximidad de nuestros calculos.
@@ -298,21 +299,22 @@ if h > radio:
 
     A continuación integrando estas dos ecuaciones, se muestra la resolución
     en la siguiente imagen:
-    \begin{figure}[!ht]
+    \begin{figure}[htbp]
         \centering
-        \includegraphics[scale=0.25,angle=90]{ejer4fc.jpg}        
+        \includegraphics[scale=0.17,angle=90]{ejer4fc}        
     \end{figure}
-
-    \section{Programación}
+    \newpage
+    \subsection{Programación}
     Para la implementación de las formulas anteriores, se decidio tener una función llamada 
     \emph{getPeriodPlanet()}, este se encargara de obtener los datos del archivo data.py y devolver
     el periodo para cada planeta.
 
     A continuación se muestra el codigo de implementación:
+    \lstinputlisting[title=Archivo ejer4.py, label=Initlabel]{ejer4.py}    
     % \newpage
-    \section{Resultados}
+    \subsection{Resultados}
     Los resultados se muestran a continuación:
-    \begin{table}[!htbp]
+    \begin{table}[htbp]
         \centering
         \begin{tabular}{cc}
             \begin{minipage}{.3\textwidth}
@@ -327,19 +329,26 @@ if h > radio:
             }
         \end{tabular}
     \end{table}
-    % \newpage
+	\newpage
     A continuación, se muestra una comparación entre
     los calculos y datos reales de los periodos.
-    \begin{table}[!htbp]
+    \begin{table}[htbp]
         \centering
         \begin{tabular}{cc}
-            \begin{minipage}{.3\textwidth}
+            \begin{minipage}{.43\textwidth}
                 \includegraphics[width=\linewidth]{e4_3}
             \end{minipage}&\begin{minipage}{.3\textwidth}
                 \includegraphics[width=\linewidth]{e4real}
             \end{minipage}
         \end{tabular}
     \end{table}
-
-
+    \\
+    Como se ve en la imagen anterior, los calculos se asemejan mucho a los valores reales.
+    \section{Anexos:}
+    \begin{itemize}
+        \item Link de descarga para todos los archivos:
+        \begin{itemize}
+            \item {\footnotesize \url{https://drive.google.com/drive/folders/1WWp8T231QxKNVKvUSbx1d7A265LKwRND?usp=sharing}}
+        \end{itemize}
+    \end{itemize}
 \end{document}

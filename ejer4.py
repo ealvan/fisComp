@@ -43,10 +43,10 @@ def printData(planet,period):
     magnitug = "dias"
     if(period/(3600*24) >= 400):
         period = period/(3.1536*10**7)
-        magnitug = "años"
+        magnitug = "anios"
     else:
-        period = period/(3600*24)
-        magnitug = "días"
+        pedPiod = period/(3600*24)
+        magnitug = "dias"
     str1 = f"""---------------------------------------------
 Planeta : {planet}
 K = {K} s^2*m^-3
@@ -69,10 +69,10 @@ def main():
         magnitug = "dias"
         if(period/(3600*24) >= 400):
             period = period/(3.1536*10**7)
-            magnitug = "años"
+            magnitug = "anios"
         else:
             period = period/(3600*24)
-            magnitug = "días"
+            magnitug = "dias"
         print(f"Periodo({planet}) = {round(period,3)} {magnitug}")
         
 if __name__ == "__main__":

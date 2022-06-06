@@ -1,5 +1,6 @@
 CONSTANTE_GRAVITACIONAL=6.672*10**-11
-AU = 1.49597871*10**11
+AU = 1.49597871*10**11#Astronomical Unit 
+#AU es una medida con respecto de la distancia del sol a la tierra.
 DATA = {
     "tierra":{
         "masa":5.972*10**24,#kg
