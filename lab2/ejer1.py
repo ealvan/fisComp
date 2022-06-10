@@ -1,71 +1,45 @@
-import pprint
-A = 0
-B = 0
-def createMatrix(a,b):
-    global A,B
-    A = a 
-    B = b
-    rows, cols = (a, b)
-    arr = [[0]*cols]*rows
-    # pprint.pprint(arr)
-    return arr
+import matplotlib.pyplot as plt
+import pandas as pd 
+import numpy as np 
 
-def getCoord(arr,a,b):
-    c = len(arr[0])-1
-    h = [0,0]
-    h[0] = b
-    h[1] = c-a
 
-    return h
+# def mean() hara el trabajo de media
 
-def printMatrix(arr,a,b):
-    xd = 1
-    xu = 11
-    yl = -1
-    yr = 5
-    count = 0
-    for i in range(a):
-        for j in range(b):
-            if(j == 0):
-                arr[i][j] = yl
-            elif(j == b-1):
-                arr[i][j] = yr
-    print(arr[0,])
-            # count+=1
-            # x,y = getCoord(arr,i,j)
-            # # print(count,"x:",x,"y:",y,"i:",i,"j:",j)
-            # if(y == 0):
-            #     # arr[x][0] = xd
-            #     print("y=0",[x,y])
-            #     pass
-            # elif(y == b-1):
-            #     arr[b-1][x] = xu
-            #     print(f"y={b-1}",[x,y])
-            # else:
-            #     arr[i][j] = -1
-    # for i in range(a):
-    #     for j in range(b):
-    #         count+=1
-    #         x,y = getCoord(arr,i,j)
-    #         if(x == 0):
-    #             pass
-    #             arr[y][0] = yl
-    #         if(x == a-1):
-    #             pass
-    #             arr[y][x] = yu
-    for item in arr:
-        print(item,end='\n')
-    # pprint.pprint(arr)
 
-def fillInitMatrix(arr,xu,xd,yl,yr):
-    printMatrix(arr,4,4)
+def fillMatrix(arr,xu,xd,yl,yr):
+    arr[0,:] = xu
+    arr[arr.shape[0]-1,:] = xd
+    arr[0:,0] = yl
+    arr[:,arr.shape[1]-1] = yr
+    arr[1,:arr.shape[1]-2]
+    arr[1:arr.shape[0]-1,1:arr.shape[1]-1] = (xu+xd+yl+yr)/4
+
+def calculate(arr):
+    for i in range(1,arr.shape[0]-1):
+        for j in range(1,arr.shape[1]-1):
+            arr[i,j] = 0.25*(arr[i+1][j]+arr[i-1][j]+arr[i][j+1]+arr[i][j-1])
+
+def getCalorMap(arr):
+    plt.imshow(arr,cmap='hot',interpolation='nearest')
+    plt.show()
 
 def main():
-    matrix = createMatrix(3,3)
-    printMatrix(matrix,3,3)
-    # fillInitMatrix(matrix,4,0,0,4)
+    a = 16
+    b = 16
+    x_upper = 4
+    x_down = 0
+    l_left = 0
+    l_right= 4
+    malla = np.zeros((a,b))
+    fillMatrix(malla,x_upper,x_down,l_left,l_right)
+    calculate(malla)
+    getCalorMap(malla)
+    # print(malla)
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
