@@ -20,7 +20,7 @@ def getGravity(planet,h):
     if not(mass and radius):
         print("No existe este planeta en nuestra base de datos...")
         exit(1)
-    if h > radius:
+    if h > 2*radius:
         print("No puede ser mayor al radio del planeta")
         exit(1)
     G = CONSTANTE_GRAVITACIONAL
