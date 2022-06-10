@@ -14,10 +14,11 @@ def fillMatrix(arr,xu,xd,yl,yr):
     arr[1,:arr.shape[1]-2]
     arr[1:arr.shape[0]-1,1:arr.shape[1]-1] = (xu+xd+yl+yr)/4
 
-def calculate(arr):
-    for i in range(1,arr.shape[0]-1):
-        for j in range(1,arr.shape[1]-1):
-            arr[i,j] = 0.25*(arr[i+1][j]+arr[i-1][j]+arr[i][j+1]+arr[i][j-1])
+def calculate(arr,times):
+    for time in range(times):
+        for i in range(1,arr.shape[0]-1):
+            for j in range(1,arr.shape[1]-1):
+                arr[i,j] = 0.25*(arr[i+1][j]+arr[i-1][j]+arr[i][j+1]+arr[i][j-1])
 
 def getCalorMap(arr):
     plt.imshow(arr,cmap='hot',interpolation='nearest')
@@ -30,9 +31,10 @@ def main():
     x_down = 0
     l_left = 0
     l_right= 4
+    times = 100
     malla = np.zeros((a,b))
     fillMatrix(malla,x_upper,x_down,l_left,l_right)
-    calculate(malla)
+    calculate(malla,times)
     getCalorMap(malla)
     # print(malla)
 
