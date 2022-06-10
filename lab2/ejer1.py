@@ -20,23 +20,29 @@ def getCoord(arr,a,b):
 
 def printMatrix(arr,a,b):
     xd = 1
-    xu = 3
+    xu = 11
     yl = -1
-    yu = 5
+    yr = 5
     count = 0
     for i in range(a):
         for j in range(b):
-            count+=1
-            x,y = getCoord(arr,i,j)
-            # print(count,"x:",x,"y:",y,"i:",i,"j:",j)
-            if(y == 0):
-                # arr[x][0] = xd
-                pass
-            elif(y == b-1):
-                arr[b-1][x] = xu
-                print(b-1,"--",x)
-            else:
-                arr[i][j] = -1
+            if(j == 0):
+                arr[i][j] = yl
+            elif(j == b-1):
+                arr[i][j] = yr
+    print(arr[0,])
+            # count+=1
+            # x,y = getCoord(arr,i,j)
+            # # print(count,"x:",x,"y:",y,"i:",i,"j:",j)
+            # if(y == 0):
+            #     # arr[x][0] = xd
+            #     print("y=0",[x,y])
+            #     pass
+            # elif(y == b-1):
+            #     arr[b-1][x] = xu
+            #     print(f"y={b-1}",[x,y])
+            # else:
+            #     arr[i][j] = -1
     # for i in range(a):
     #     for j in range(b):
     #         count+=1
@@ -53,9 +59,10 @@ def printMatrix(arr,a,b):
 
 def fillInitMatrix(arr,xu,xd,yl,yr):
     printMatrix(arr,4,4)
+
 def main():
-    matrix = createMatrix(4,4)
-    printMatrix(matrix,4,4)
+    matrix = createMatrix(3,3)
+    printMatrix(matrix,3,3)
     # fillInitMatrix(matrix,4,0,0,4)
 
 if __name__ == "__main__":
