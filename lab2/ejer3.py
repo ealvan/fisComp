@@ -3,17 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 INFINIT0 = 100
 
-#constantes
+#constantes de la ecuacion
 cts = {
-    "V2":0,
+    "V2":0, 
     "V1":1,
     "a":1,
     "b":1,
 }
-#z=
-#   z+4*(V2*sinh((N)*pi*x/b)+V1*sinh((N)*pi*(a-x)/b)).*
-#   sin((N)*pi*y/b)/(sinh((N)*pi*a/b)*(N)*pi)
-
+#esta funcion implementa la ecuacion del problema 3
 def funcion(x,y):
     const = 4/pi
     a = cts["a"]
@@ -22,7 +19,6 @@ def funcion(x,y):
     V2 = cts["V2"]
     general2=0
     for n in range(1,INFINIT0,2):
-        # print(f"((n:{n}*pi)/b:{b})*(a:{a}-x:{x})")
         c1 = 1/n
         part1 = V2*sinh(((n*pi)/b)*x)
         part2 = V1*sinh(((n*pi)/b)*(a-x))
@@ -31,15 +27,7 @@ def funcion(x,y):
         general2 += c1*((part1+part2)/denomi)*part3
     return const*general2
 
-def fillMatrix(arr,xu,xd,yl,yr):
-    arr[0,:] = xu
-    arr[arr.shape[0]-1,:] = xd
-    arr[0:,0] = yl
-    arr[:,arr.shape[1]-1] = yr
-    arr[1,:arr.shape[1]-2]
-    #(xu+xd+yl+yr)/4
-    arr[1:arr.shape[0]-1,1:arr.shape[1]-1] = 0
-
+#aqui se itera la matriz y se usa la funcion solucion
 def calculate(arr):
     a = cts["a"]
     b = cts["b"]
@@ -49,15 +37,17 @@ def calculate(arr):
 
     for i in range(0,arr.shape[0]-1):
         for j in range(0,arr.shape[1]-1):
+            #aqui se esta usando la funcion
             arr[i][j] = funcion(x[i],x[j])
 
+#para obtener el mapa de calor.
 def getCalorMap(arr):
     plt.imshow(arr,cmap='hot',interpolation='nearest')
     plt.show()
 
+#parte central de los metodos.
 def analiticalFuncion(nx,ny):
     malla = np.zeros((nx,ny))
-    # fillMatrix(malla,xu,0,0,yr)
     calculate(malla)
     getCalorMap(malla)
 

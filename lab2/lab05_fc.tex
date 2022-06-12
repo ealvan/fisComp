@@ -1,6 +1,6 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[demo]{graphicx}
+\usepackage{graphicx}
 \usepackage{multicolumn}
 \usepackage{multirow}
 \usepackage{booktabs}
@@ -10,11 +10,13 @@
 \usepackage{tabs}
 % \usepackage{colortbl}
 \usepackage{url}
+\usepackage{datetime}
 \usepackage[ top=5cm, left=3cm, right=2cm, headheight=4cm]{geometry}
 \usepackage{lastpage} % include last page numbering
 \usepackage{fancyhdr}
 \usepackage[table]{xcolor}% ctan.org/pkg/xcolor %FOR COLORS
 % \usepackage{frame}
+\settimeformat{ampmtime}
 \hyphenation{matriz}
 \graphicspath{{figures/}{./images/}}
 \newcommand{\eq}[1]{$#1$}
@@ -76,7 +78,7 @@ numbers=left,showspaces=false,showstringspaces=false}
             \hline
             \header{\mbox{NÚMERO DE} PRÁCTICA} & {\header[\footnotesize]{05}} & \header{AÑO LECTIVO:} & {\header[\footnotesize]{2022-A}} & \header{NRO. SEMESTRE:} & \header[\footnotesize]{VII}\\
             \hline
-            \header{\mbox{FECHA DE} \mbox{PRESENTACIÓN}} & \header{\today} & \header{HORA DE \mbox{PRESENTACIÓN:}} & \multicolumn{3}{c}{\header[\footnotesize]{10:45 pm}}\\
+            \header{\mbox{FECHA DE} \mbox{PRESENTACIÓN}} & \header{\today} & \header{HORA DE \mbox{PRESENTACIÓN:}} & \multicolumn{3}{c}{\header[\footnotesize]{\currenttime}}\\
             \hline
             \multicolumn{4}{l}{\header[\footnotesize]{Integrante(s): Alván Ventura Edsel Yael}} & \header{NOTA} & \\
             \hline
@@ -96,47 +98,53 @@ numbers=left,showspaces=false,showstringspaces=false}
     \end{center}
     % \newgeometry{top=2cm}
     \enlargethispage{\baselineskip}
-    \newpage
+    % \newpage
     \section{Problema 1}
     Resuelva aproximadamente la ecuación de Laplace \eq{\nabla^2u = 0} en un
     cuadrado definido por \eq{0 < x < 4} y \eq{ 0 < y < 4}, con las condiciones en la
     frontera.
     \begin{quote}
         \centering
-        \eq{u(x,0) = = 20} y \eq{u(x,4) = 300} para todo \eq{0 < x <4}\\
+        \eq{u(x,0) = 20} y \eq{u(x,4) = 300} para todo \eq{0 < x <4}\\
         \eq{u(0,y) = 80} y \eq{u(4,y) = 0} para todo \eq{0 < y <4}
     \end{quote}
+    \newpage
+    \newgeometry{bottom=1cm,top=5cm,left=2.5cm,right=1.5cm}
     \subsection{Análisis}
-    La ecuación diferencial de Laplace puede ser resuelta numericamente mediante la técnica de 
-    diferencias finitas, las diferencias finitas pueden ayudarnos a aproximar mucho a una solución analítica.
+    La ecuación diferencial de Laplace puede ser resuelta 
+    numéricamente mediante la técnica de 
+    diferencias finitas, las diferencias finitas pueden 
+    ayudarnos a aproximar mucho a una solución analítica.
     
     Para lograrlo, necesitamos deducir esta formula:
     \begin{equation}
         u(i,j) = \frac{1}{4}(u_{i+1,j}+u_{i-1,j}+u_{i,j-1}+u_{i,j+1})
     \end{equation}
-    A partir de las series de taylor, para deducir una aproximación numerica a la segunda derivada de la funcion \eq{u(i,j)}:
-    \begin{table}[h]
+    A partir de las series de taylor, se debe deducir una aproximación numérica a 
+    la segunda derivada de la funcion \eq{u(i,j)}:
+    \begin{figure}[h]
         \centering
-        \begin{tabular}{cc}
-            \begin{minipage}{7cm}
-                \includegraphics[scale=0.5]{deduccion1.png}
-            \end{minipage}&
-            \begin{minipage}{7cm}
-                \includegraphics[scale=0.5]{deduccion2.png}
-            \end{minipage}
-        \end{tabular}
-    \end{table}            
+        \includegraphics[width=10cm]{demo1.jpg}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=10cm]{demo2.jpg}
+    \end{figure}
+    \newpage
     \subsection{Programación}
     Luego de la deducción:
     \begin{enumerate}
         \item Se creó una matriz de m{\scriptsize x}n.
-        \item Los contornos de la matriz se llenaron con los bordes dados por la función.
-        \item Luego la parte central de la matriz(no incluyendo los bordes) se lleno de la media de los valores
-        de los valores del borde.
+        \item Los contornos de la matriz se especificaron con las condiciones frontera Dirichtlet dadas por el problema.
+        \item Luego, la parte central de la matriz(no incluyendo los bordes) 
+        se lleno de la media de los valores de las condiciones frontera Dirichtlet(\eq{(xu+xd+yl+yd)/4}).
         \item Despues de hacer eso, se implementó la técnica numérica para iterar sobre la parte central de la matriz anteriormente dicha.
-        \item Y por ultimo, se coloco la matriz en un mapa de calor, para ver las condiciones frontera.
+        \item Y finalmente, se colocó la matriz en un mapa de calor, para ver las condiciones frontera(se uso la librería \emph{matplotlib}).
     \end{enumerate}
-    Las dimensiones del array son parametros de la función llamada \eq{Laplace()}.
+
+    Cabe destacar que las dimensiones del array son parámetros 
+    de la función llamada \eq{Laplace()}.
+
     Esta función se denota de la siguiente manera:
     \begin{equation}
         %err aun no me sale, esta F, no converge en esa variable
@@ -149,13 +157,13 @@ numbers=left,showspaces=false,showstringspaces=false}
             \toprule
             \head{Parámetros} & \multicolumn{2}{c}{\head{Descrición}}\\
             \midrule
-            xu & Representa la recta \eq{u(x,4) = 300 = xu}&arriba\\
-            xd & Representa la recta \eq{u(x,0) = 20 = xd}&abajo\\
-            yl & Representa la recta \eq{u(0,y) = 80 = yl}&izquierda\\
-            yr & Representa la recta \eq{u(4,y) = 300 = yr}&derecha\\
-            f & Representa el numero de filas de la matriz\\
-            c & Representa el numero de columnas de la matriz\\
-            h & Representa el numero de iteraciones de la matriz\\
+            xu & Representa la recta \eq{u(x,4) = 300 = xu}& Arriba\\
+            xd & Representa la recta \eq{u(x,0) = 20 = xd}& Abajo\\
+            yl & Representa la recta \eq{u(0,y) = 80 = yl}& Izquierda\\
+            yr & Representa la recta \eq{u(4,y) = 300 = yr}& Derecha\\
+            f & Representa el número de filas de la matriz\\
+            c & Representa el número de columnas de la matriz\\
+            h & Representa el número de iteraciones de la matriz\\
             % err&Representa el error minimo que se debe obtener.\\
             % \bottomrule
             \end{tabular}
@@ -166,14 +174,16 @@ numbers=left,showspaces=false,showstringspaces=false}
     \lstinputlisting[label=Archivo ejer1.py]{ejer1.py}
     
     Como se puede ver, los datos del primer ejercicio estan puestos en la siguiente pieza de código:
-    \lstinputlisting[label=Archivo ejer1.py,firstline=48, lastline=57]{ejer1.py}
+    \lstinputlisting[label=Archivo ejer1.py,firstline=43, lastline=51]{ejer1.py}
 
     \subsection{Resultados}
         Los resultados son los siguientes:
         \begin{figure}[h]
             \centering
-            \includegraphics[scale=0.5]{resultado_ejer1.png}
+            \includegraphics[scale=0.7]{ejer1_demostr.png}
+            \caption{Mapa de calor del problema 1.}
         \end{figure}
+
         En la anterior imagen se puede ver, los puntos mas calientes, donde 
         la función alcanza sus valores máximos(color rojizo anaranjado),
         y la parte negra representa los valores mínimos de la función.
@@ -183,17 +193,17 @@ numbers=left,showspaces=false,showstringspaces=false}
     \eq{0 < y < 4}, con las condiciones en la frontera.
     \begin{quote}
         \centering
-        \eq{u(x,0) = 120} y \eq{u(x,4) = 0} para todo \eq{0 < x < 4}
+        \eq{u(x,0) = 120} y \eq{u(x,4) = 0} para todo \eq{0 < x < 4}\\
         \eq{u(0,y) = 120} y \eq{u(4,y) = 0} para todo \eq{0 < y < 4}
     \end{quote}
     \subsection{Análisis}
-    En la siguiente tabla se especifica que valores se tomaron para el problema 2,
+    En la siguiente tabla se especifica, qué valores se tomaron para el problema 2,
     a partir de la implementación del problema 1:
-    \begin{table}[h]
+    \begin{table}[t]
         \centering
         \begin{tabular}{>{\footnotesize}l<{:}>{\footnotesize}p{6cm}>{\footnotesize}p{4cm}<{ del cuadrado}}
         \toprule
-        \head{Parámetros} & \multicolumn{2}{c}{\head{Descrición}}\\
+        \head{Parámetros} & \multicolumn{2}{c}{\head{Descripción}}\\
         \midrule
         xu & Será \eq{u(x,4) = 0 = xu}&arriba\\
         xd & Será la recta \eq{u(x,0) = 120 = xd}&abajo\\
@@ -206,18 +216,22 @@ numbers=left,showspaces=false,showstringspaces=false}
         % \bottomrule
         \end{tabular}
     \end{table}
+    \newpage
     \subsection{Programación}
-    La implementación es la misma que el anterior problema, la diferencia radica en:
+    La implementación es la misma que el anterior problema, la diferencia radica en los siguientes
+    valores dados en esta tabla:
+    % \newpage
+    \lstinputlisting[firstline=43, lastline=52]{ejer2.py}
 
-    \lstinputlisting[firstline=48, lastline=57]{ejer2.py}
     \subsection{Resultados}
     El resultado es el siguiente:
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.5]{ejer2_demostr.png}
+        \includegraphics[width=9cm]{ejer2_demostr.PNG}
+        \caption{Mapa de calor del problema 2.}
     \end{figure}
 
-    Como se puede apreciar en la anterior figura, %NO LO HE PROBADO AÚN
+    % Como se puede apreciar en la anterior figura, %NO LO HE PROBADO AÚN
 
     \section{Problema 3}
     Implementar un código computacional para la solución del siguiente
@@ -233,26 +247,30 @@ numbers=left,showspaces=false,showstringspaces=false}
     
     \begin{table}[h]
         \centering
-        \begin{tabular}{lc<{.}}
+        \begin{tabular}{ll<{.}}
             \head{Variables y constantes} & \head{Descrición}\\
             \midrule
             \eq{V_1} & Potencial 1\\
             \eq{V_2} & Potencial 2\\
             a & Distancia entre las dos laminas\\
             b & Anchura de las dos láminas\\
-            \eq{sinh()} & Se refiere a la funcion hiperbólica de \eq{sin()}\\
+            \eq{sinh()} & Se refiere a la funcion hiperbólica de la función seno(\eq{sin()})\\
             x,y & son los parámetros de la función en el plano cartesiano
         \end{tabular}
     \end{table}
 
     \subsection{Programación}
-    Para la implementación del algoritmo se siguio de la siguiente manera:
+    Para la implementación del algoritmo se procedió de la siguiente manera:
     
     \begin{enumerate}
-        \item Se creo la matriz de m{\scriptsize x}n.
-        \item Luego se le indico los limites del plano cartesiano(x,y), en los que actuaría la función.
+        \item Se creó la matriz de m{\scriptsize x}n (por defecto todos los valores en 0).
         \item Después, se recorrió la matriz en toda su extensión con dos \emph{for} anidados(uno para fila y el otro para las columnas).
-        \item Mientras se hacia el paso anterior, se puso adentro de los dos \emph{for}, se uso la función analítica(1) a implementar con los valores \eq{(x,y)} del plano cartesiano.
+        \begin{itemize}
+            \item Mientras se hacia el paso anterior(dentro de 
+            los dos \emph{for}), se usó la función implementada a partir 
+            de la solución analítica de la función(\eq{V(x,y)}) 
+            con los valores \eq{(x,y)} del plano cartesiano.
+        \end{itemize}
         \item Todos estos valores se guardaban respectivamente en la matriz.
         \item Luego se puso la matriz en un mapa de calor(se uso la librería \emph{matplotlib}).
     \end{enumerate}
@@ -265,6 +283,7 @@ numbers=left,showspaces=false,showstringspaces=false}
     Los resultados para la función analítica son:
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.4]{ejer3_demotr.png}
+        \includegraphics[scale=0.8]{eje3_demostr1.PNG}
+        \caption{Mapa de calor del problema 3.}
     \end{figure}
 \end{document}
