@@ -1,0 +1,87 @@
+Introducción:
+Los metodos Garlekin y Gauss fueron desarrollados 
+por grandes matematicos como Georgii Ivanovich Petrov, Boris Galerkin y  Carl Friedrich Gauss 
+, quienes propusieron y formaron nuevas formas de solución para ecuaciones discretas,
+sistema de ecuaciones de forma discreta, que en su gran mayoria sirve ahora para
+hacer redes neuronales, modelar ecuaciones diferenciales que a muchas veces
+no tienen una solución analitica. La importancia de estas tecnicas es 
+que pueden ser programadas y de hecho se usan en varias aplicaciones como
+mejorar la resolucion de una imagen tambien llamada "Filtro direccional gaussiano"\cite{1},
+e incluso para resolucion de modelos de programación dinamica.
+
+
+Metodo Garlekin:
+
+En matemáticas, en el área del análisis numérico, 
+los métodos de Galerkin, llamados así por el matemático 
+ruso Boris Galerkin, convierten un problema de operador 
+continuo, como una ecuación diferencial, comúnmente en 
+una formulación débil, en un problema discreto mediante 
+la aplicación de restricciones lineales determinadas por 
+finito. conjuntos de funciones base.
+
+Fue en honor a Boris Garlekin, que se llamo "Metodos de Garlekin",
+estos metodos estan en el campo de análisis numérico, estos metodos toman
+un problema continuo, como una ecuación diferencial, en un problema 
+discreto mediante la aplicación de restricciones lineales determinadas
+por conjuntos finitos.
+
+A continuación se enumeran variaciones del 
+Metodo Garlekin, dado condiciones iniciales:
+
+Metodo Ritz-Garlekin:
+    normalmente asume una forma bilineal definida simétrica 
+    y positiva en la formulación débil, donde la ecuación 
+    diferencial para un sistema físico se puede formular 
+    mediante la minimización de una función cuadrática que 
+    representa la energía del sistema y la solución aproximada 
+    es una combinación lineal del conjunto dado de funciones base .
+Metodo Bubnov-Galerkin:
+    no requiere que la forma bilineal sea simétrica y 
+    sustituye la minimización de energía con restricciones 
+    de ortogonalidad determinadas por las mismas funciones 
+    de base que se utilizan para aproximar la solución.
+Metodo Petrov-Galerkin:
+    permite utilizar funciones base para restricciones de
+    ortogonalidad (llamadas funciones base de prueba) que 
+    son diferentes de las funciones base utilizadas para 
+    aproximar la solución. El método de Petrov-Galerkin\cite{2} 
+    puede verse como una extensión del método de Bubnov-Galerkin, 
+    aplicando una proyección que no es necesariamente ortogonal 
+    en la formulación del operador de la ecuación diferencial.
+
+En esta monografía, se desarrollara un ejemplo del metodo Petrov Garleking, concretamente
+con el Método de residuos ponderados de Garlekin :
+A continuación mostramos la formula que nos ayudara a resolver 
+el problema\cite{3}:
+#Mostrar la formula:
+
+Nuestro problema es:
+    Dada la siguiente ecuación y su respectiva solución analitica,
+    compruebe usando el metodo de Garlekin, una función aproximada:
+    #mostrar equation y'' + y' = 1
+    La solucion exacta es:
+    #mostrar solucion exacta: y = 1 -sin(x)/sin(1)
+    Las condiciones borde son:
+    y(0) = 1
+    y(1) = 0
+
+Resolucion:
+  #Mostrar images of resolution
+  #show formula aproximada 1-x+5/18(x^2-x)
+
+Metodo Gauss:
+  Hay muchos metodos de Gauss, cada uno tiene sus ventajas y sus desventajas:
+      Metodo de Eliminacion de Gauss Jordan
+      Metodo de eliminacion Gaussiana.
+  El metodod de eliminacion gaussiana es en general más eficiente que Gauss-Jordan.
+  Sin embargo, la eliminacion Gauss-Jordan tiene la ventaja de ser más directa para
+  operaciones a mano. Es decir, este metodo es usado para resolver sistemas de ecuaciones 
+  pequeños y pueden ser realizados a mano.
+
+  En esta seccion se presenta un problema resuelto con eliminacion gaussiana
+
+1. https://globaljournals.org/GJSFR_Volume15/4-Gaussian-Elimination-Method.pdf
+https://mae.ufl.edu/nkim/eml5526/Lect06.pdf
+3. https://www.me.ua.edu/me611/f02/pdf/mwr.pdf 
+2. https://en.wikipedia.org/wiki/Petrov%E2%80%93Galerkin_method
