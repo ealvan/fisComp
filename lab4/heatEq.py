@@ -40,20 +40,28 @@ def cmap_map(function, cmap):
 #f: es una lambda function
 #malla: es la matriz
 #x: es el array con la condicion inicial
-def fillMalla(malla,g1,g2):
+def fillMalla(malla,g1,g2,f,x):
     # x = a:dx:b es un array 
-    # x_f = np.array([f(item) for item in x])
-    # malla[:,0] = x_f
+    x_f = np.array([f(item) for item in x])
+    malla[:,0] = x_f
     # print(malla)
-    malla[:,0] = g1
-    malla[:,malla.shape[0]-1] = g2
+    # malla[:,0] = g1
+    # malla[:,-1] = g2
 
-def calculate(malla,dx,dt):
+
+def calculate(malla,dx,dt,x):
+    var_graf = 0.1
     s = (dt)/(dx**2)#por el momento... dt/dx^2
+    print("S=",s)
     # for _ in range(40):
     for j in range(0,malla.shape[1]-1):
         for i in range(1,malla.shape[0]-1):
             malla[i,j+1] = s*malla[i-1,j] + (1-2*s)*(malla[i,j]) + malla[i+1,j]*s
+    # for i in range(1,malla.shape[0]-1):
+    #     if i % (var_graf/dt) == 0:
+    #         plt.plot(x, malla[:,i], label="T = " + str(i*t/paso) + 's')
+    # plt.grid()
+    # plt.show()
 
 def getCalorMap(arr):
     dark_jet = cmap_map(lambda x: x*1, matplotlib.cm.jet)
@@ -62,8 +70,9 @@ def getCalorMap(arr):
     # cs = ax.contourf(arr, levels=np.linspace(0, 1, 25))
     # divider = make_axes_locatable(ax)
     # cax = divider.append_axes("right", size="5%", pad=0.05)
-    im.set_clim(0,1)
+    # im.set_clim(0,1)
     # plt.colorbar(im,cax = cax)
+    plt.grid()
     plt.show()
 
 def ecuacionCalor(a,b,t0,tf,f,mx,ny,g1,g2):
@@ -72,8 +81,8 @@ def ecuacionCalor(a,b,t0,tf,f,mx,ny,g1,g2):
     dt = (tf-t0)/(ny-1)
     x = np.linspace(a,b,malla.shape[0])
     t = np.linspace(t0,tf, malla.shape[1])
-    fillMalla(malla,g1,g2)
-    calculate(malla,dx,dt)
+    fillMalla(malla,g1,g2,f,x)
+    calculate(malla,dx,dt,x)
     getCalorMap(malla)
     # print(malla[:,malla.shape[0]-1])
 
@@ -81,24 +90,25 @@ def ecuacionCalor(a,b,t0,tf,f,mx,ny,g1,g2):
 def main():
     #malla dimensions
     #x:
-    mx = 20
+    mx = 40
     #y:
-    ny = 300
+    ny = 400
     #for x axis
     a = 0
     b = 1
     dx = (b-a)/(mx-1)
     #for y axis
     t0 = 0
-    tf = 0.2
+    tf = 1
     dt = (tf-t0)/(ny-1)
     #Condicion inicial
-    f = lambda x: m.sin(m.pi*x)
+    n = 1
+    f = lambda x: 4 - abs(4*x-1) - abs(4*x-3)#
     #Condiciones frontera:
-    g1 = 1
-    g2 = -1
+    # g1 = 1 # en este ejercicio no se utilizan
+    # g2 = -1
     #ecuacion de calor:
-    ecuacionCalor(a,b,t0,tf,f,mx,ny,g1,g2)
+    ecuacionCalor(a,b,t0,tf,f,mx,ny,0,0)
 
 if __name__ == "__main__":
     main()

@@ -3,18 +3,10 @@ import matplotlib
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 import math as m
-
-V = 1.1#la constante V de la formula
-
-def createMalla(m,n):
-    return np.zeros((m,n))
+gamma = 0.5
 #funcion para obtener los colores para nuestra
 #imagen(obtenida de la documentacion de python)
 def cmap_map(function, cmap):
-    """ Applies function (which should operate on vectors 
-    of shape 3: [r, g, b]), on colormap cmap.
-    This routine will break any discontinuous points in a colormap.
-    """
     cdict = cmap._segmentdata
     step_dict = {}
     # Firt get the list of points where the segments start or end
@@ -44,72 +36,68 @@ def cmap_map(function, cmap):
 #f: es una lambda function
 #malla: es la matriz
 #x: es el array con la condicion inicial
-def fillMalla(malla,f,x):
-    # x = a:h:b es un array 
+def fillMalla(malla,alfa,beta,f,x):
+    # x = a:dx:b es un array 
     x_f = np.array([f(item) for item in x])
     malla[:,0] = x_f
-
-def calculate(malla,h,k):
-    r = (V**2*k)/(h**2)#por el momento... k/h^2
+    # print(malla)
+    # malla[:,0] = alfa
+    # malla[:,malla.shape[1]-1] = beta
+    pass
+def calculate(malla,dx,dt,x,t,f):
+    s = ((dt)/(dx**2))#por el momento... dt/dx^2
+    print("S < 0.5 = ",s)
     # for _ in range(40):
-    for j in range(0,malla.shape[1]-1):
-        for i in range(1,malla.shape[0]-1):
-            malla[i,j+1] = r*malla[i-1,j] + (1-2*r)*(malla[i,j]) + malla[i+1,j]*r
+    for i in range(1,malla.shape[0]-1):
+        for j in range(0,malla.shape[1]-1):
+            malla[i,j+1] = s*malla[i-1,j] + (1-2*s)*(malla[i,j]) + malla[i+1,j]*s
 
-def getCalorMap(arr,x,dt):
-    malla = arr
-    var_graf = 0.001
-    # dark_jet = cmap_map(lambda x: x*1, matplotlib.cm.jet)
-    # ax = plt.subplot()
-    # im = ax.imshow(arr,cmap=dark_jet,aspect='auto')
-    # divider = make_axes_locatable(ax)
-    # cax = divider.append_axes("right", size="5%", pad=0.05)
-    # plt.colorbar(im,cax = cax)
-    # print("*"*12)
-    # print(arr[:,0])
-    # print(arr[:,10])
-    # print(arr[:,15])
-    plt.figure()
-    for i in range(len(malla[:,0])):
-        if(i %  (2) == 0):
-            plt.plot(x,malla[:,i],label=f"T ={i*dt}segs")
-    plt.title("Ecuacion de Calor")
-    plt.legend()
-    plt.grid()
+def getCalorMap(arr,t0,tf):
+    dark_jet = cmap_map(lambda x: x*1, matplotlib.cm.jet)
+    ax = plt.subplot()
+    im = ax.imshow(arr,cmap=dark_jet,aspect='auto')
+    # cs = ax.contourf(arr, levels=np.linspace(0, 1, 25))
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    im.set_clim(t0,tf)
+    plt.colorbar(im,cax = cax)
     plt.show()
 
 def ecuacionCalor(a,b,t0,tf,f,mx,ny):
-    malla = createMalla(mx,ny)
-    h = (b-a)/(mx-1)
-    k = (tf-t0)/(ny-1)
+    malla = np.zeros((mx,ny))
+    dx = (b-a)/(mx-1)
+    dt = (tf-t0)/(ny-1)
     x = np.linspace(a,b,malla.shape[0])
     t = np.linspace(t0,tf, malla.shape[1])
-    fillMalla(malla,f,x)
-    calculate(malla,h,k)
-    getCalorMap(malla,x,k)
-    # print(malla[:,0])
-    # print(malla[:,malla.shape[1]-1])
+    fillMalla(malla,t0,tf,f,x)
+    calculate(malla,dx,dt,x,t,f)
+    getCalorMap(malla,t0,tf)
+    # print(malla[:,malla.shape[0]-1])
+
 
 def main():
     #malla dimensions
     #x:
     mx = 40
     #y:
-    ny = 300
-    #Para x axis
+    nt = 300
+    #for x axis
     a = 0
-    b = 1.2
-    h = (b-a)/(mx-1)
-    #Para y axis
+    b = 1
+    dx = (b-a)/(mx-1)
+    #for t axis
     t0 = 0
-    tf = 1
-    k = (tf-t0)/(ny-1)
+    tf = 0.3
+    dt = (tf-t0)/(nt-1)
+    print("dx=",dx,"dt=",dt)
+    print("s <= 0.5 = (dt)/(dx**2)=",(dt)/(dx**2))
     #Condicion inicial
-    n = 1
-    f = lambda x: m.sin(n*m.pi*x) + m.sin(n+1)*m.pi*x#m.sin(m.pi*x)#
+    n = 0
+    f = lambda x: m.sin(m.pi*x)#m.sin(n*m.pi*x) + m.sin(n+1)*m.pi*x#
+
     #ecuacion de calor:
-    ecuacionCalor(a,b,t0,tf,f,mx,ny)
-    
+    #def ecuacionCalor(a,b,t0,tf,f,mx,ny):
+    ecuacionCalor(a,b,t0,tf,f,mx,nt)
+
 if __name__ == "__main__":
     main()
-

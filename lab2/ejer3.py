@@ -38,7 +38,7 @@ def calculate(arr):
     for i in range(0,arr.shape[0]-1):
         for j in range(0,arr.shape[1]-1):
             #aqui se esta usando la funcion
-            arr[i][j] = funcion(x[i],x[j])
+            arr[i][j] = funcion(x[i],y[j])
 
 #para obtener el mapa de calor.
 def getCalorMap(arr):
