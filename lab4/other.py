@@ -51,6 +51,7 @@ def eqCalor(dt, fun,alfa,beta,t= 1, L = 1, gamma =0.5):
     # x = x[:-1]
     a = True
     for i in range(int(paso)+1):
+        
         if i % (var_graf/dt) == 0:
             u_aux = deepcopy(ui)
             u_aux = np.insert(u_aux, 0, alfa)
