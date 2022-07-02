@@ -1,0 +1,156 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{multicolumn}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[indent=0pt,skip=3mm]{parskip}
+\usepackage{array}
+\usepackage{commath} % for abs ||
+\usepackage{listings}             % Include the listings-package
+\usepackage{tabs}
+% \usepackage{colortbl}
+\usepackage{url}
+\usepackage{datetime}
+\usepackage[ top=5cm, left=1.5cm, right=1.5cm, headheight=4cm,bottom=1cm]{geometry}
+\usepackage{lastpage} % include last page numbering
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor}% ctan.org/pkg/xcolor %FOR COLORS
+% \usepackage{frame}
+\settimeformat{xxivtime}
+\setdefaultdate{\ddmmyyyydate}
+\hyphenation{matriz}
+\graphicspath{{figures/}{./images/}}
+\newcommand{\eq}[1]{$#1$}
+\newcommand{\head}[1]{{\bfseries #1}}
+\newcommand{\header}[2][\tiny]{{\bfseries #1 #2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox{\mytabularheader}
+\newsavebox{\mytabularheadertitle}
+\setlength{\extrarowheight}{0.1cm}
+%----------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------
+\sbox{\mytabularheadertitle}{%
+  \begin{minipage}{.52\textwidth}
+    \begin{center}
+        \bfseries \scriptsize  UNIVERSIDAD NACIONAL DE SAN AGUSTIN\\
+        FACULTAD DE INGENIERÍA DE PRODUCCIÓN Y SERVICIOS\\
+        ESCUELA PROFESIONAL DE INGENIERÍA DE SISTEMA\\[3mm]
+    \end{center}
+  \end{minipage}
+}
+
+\sbox{\mytabularheader}{%
+    \begin{minipage}{\textwidth}
+        \centering
+        \begin{tabular}{cp{8cm}c}
+            \includegraphics[scale=0.3]{epis_logo.png} & 
+            \usebox{\mytabularheadertitle} &
+            \includegraphics[scale=0.05]{abet_logo.png} \\
+            % \hline
+            \multicolumn{3}{c}{Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación}\\
+             &\multicolumn{1}{c}{Aprobación:  2022/03/01 Código: GUIA-PRLE-001} &  \\
+        \end{tabular}
+    \end{minipage}
+}
+%---------------------------------------
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhf[ch]{\usebox{\mytabularheader}}
+}
+%--------------------------------------
+\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blackRed}{cmyk}{0,81,76,31}
+
+\begin{document}    
+\lstset{language=Python,frame=single, firstnumber=1,basicstyle=\footnotesize,
+numbers=left,showspaces=false,showstringspaces=false}   
+    \begin{table}[t]
+        \centering
+        \begin{tabular}{|p{2.3cm}<{:}|m{1.7cm}|m{2.4cm}|m{2cm}|m{3cm}|m{0.6cm}|}
+            \multicolumn{6}{c}{\cellcolor{red}{\leavevmode\color{white}\header{INFORMACIÓN BÁSICA}}}\\
+            \hline
+            \header{ASIGNATURA} & \multicolumn{5}{c}{\header[\footnotesize]{Física Computacional.}}\\
+            \hline
+            \header{\mbox{TÍTULO DE LA} PRÁCTICA} & \multicolumn{5}{c}{\header[\footnotesize]{Práctica de Ecuación diferencial de Laplace.}}\\
+            \hline
+            \header{\mbox{NÚMERO DE} PRÁCTICA} & {\header[\footnotesize]{05}} & \header{AÑO LECTIVO:} & {\header[\footnotesize]{2022-A}} & \header{NRO. SEMESTRE:} & \header[\footnotesize]{XI}\\
+            \hline
+            \header{\mbox{FECHA DE} \mbox{PRESENTACIÓN}} & \header{\today} & \header{HORA DE \mbox{PRESENTACIÓN:}} & \multicolumn{3}{c}{\header[\footnotesize]{\currenttime}}\\
+            \hline
+            \multicolumn{4}{l}{\header[\footnotesize]{Integrante(s): Alván Ventura Edsel Yael}} & \header{NOTA} & \\
+            \hline
+            \multicolumn{6}{l}{\header[\footnotesize]{DOCENTE(s):} \header[\footnotesize]{Danny Giancarlo Apaza Veliz.}} \\  
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    \title{Práctica 6\\Ecuación de calor\\Física Computacional}
+    \date{\vspace{-5ex}}
+    \maketitle
+    \begin{center}
+        Escrito por\\
+        Alván Ventura, Edsel Yael\\ \texttt{ealvan@unsa.edu.pe}
+        \\[3mm]
+        Profesor\\Apaza Veliz, Danny Giancarlo\\ \texttt{dapazav@unsa.edu.pe}\\[3mm]
+        \today
+    \end{center}
+    % \newgeometry{top=2cm}
+    \enlargethispage{\baselineskip}
+    % \newpage
+    \section{Implementación}
+    A continuación se muestra una implementación vertical de la matriz que grafica la ecuación de onda.
+    
+    Para hacer la siguiente implementación se uso:
+    \begin{enumerate}
+        \item La formula de ecuación de onda en una dimensión.
+        \item El lenguaje de programación de Python version 3.
+        \item Las libreria \emph{numpy} y la libreria \emph{malplotlib}
+        \item Se considero una implementación vertical.
+    \end{enumerate}
+
+    \section{Problemas}
+    Realice la solución de los siguientes problemas usando la 
+    misma lógica mostrada en clase:
+    \begin{enumerate}
+        \item Use \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = sin(2x)} y \eq{g(x) = 2sin(2x)}.
+        \item Use \eq{a = 1}, \eq{b = 1}, \eq{v = 2}, \eq{f(x) = x^2 - x + sin(2x)} y \eq{g(x) = sin(x)}.
+        \item Use \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = sin(x)} y \eq{g(x) = 0}.
+        \item Use \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = 2x - 1} y \eq{g(x) = 0}.
+        \item Use \eq{a = 1}, \eq{b = 1}, \eq{d = 1}, \eq{v = 1},\eq{f(x) = |4x - 1|} y \eq{g(x) = 0}.
+    \end{enumerate}
+    \subsection{Problema 1}
+    Grafique la función de onda, con los siguientes valores:
+    \begin{quote}
+        \centering
+        \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = sin(2x)} y \eq{g(x) = 2sin(2x)}.
+    \end{quote}
+    \subsection{Problema 2}
+    Grafique la función de onda, con los siguientes valores:
+    \begin{quote}
+        \centering
+        \eq{a = 1}, \eq{b = 1}, \eq{v = 2}, \eq{f(x) = x^2 - x + sin(2x)} y \eq{g(x) = sin(x)}.
+    \end{quote}
+    \subsection{Problema 3}
+    Grafique la función de onda, con los siguientes valores:
+    \begin{quote}
+        \centering
+        \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = sin(x)} y \eq{g(x) = 0}.
+    \end{quote}
+    \subsection{Problema 4}
+    Grafique la función de onda, con los siguientes valores:
+    \begin{quote}
+        \centering
+        \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = 2x - 1} y \eq{g(x) = 0}.
+    \end{quote}
+    \subsection{Problema 5}
+    Grafique la función de onda, con los siguientes valores:
+    \begin{quote}
+        \centering
+        \eq{a = 1}, \eq{b = 1}, \eq{d = 1}, \eq{v = 1},\eq{f(x) = |4x - 1|} y \eq{g(x) = 0}.
+    \end{quote}
+    
+\end{document}

@@ -5,7 +5,7 @@ import numpy as np
 import math as m
 import time
 
-def heatEquation(dt,f,alfa,beta,t=1,L=1,gamma=0.5):
+def ecuacionCalor(dt,f,alfa,beta,t=1,L=1,gamma=0.5):
     L0 = 0
     t0 = 0
     var_graf = 0.1
@@ -19,12 +19,12 @@ def heatEquation(dt,f,alfa,beta,t=1,L=1,gamma=0.5):
     x = np.linspace(L0, L, mx)
     print(f"La malla es de {nt}x{mx}")
     s = gamma*(dt/(dx**2))
-
+    print("S es : ", s)
     malla = np.zeros((nt,mx))
 
     malla[:,0] = alfa
     malla[:,malla.shape[1]-1] = beta
-
+    #Condiciones iniciales al inicio de la barra:
     for j in range(0,malla.shape[1]):
             malla[malla.shape[0]-1, j] = f(x[j])
 
@@ -34,6 +34,8 @@ def heatEquation(dt,f,alfa,beta,t=1,L=1,gamma=0.5):
                 tmp1 = s*(malla[i,j-1]+ malla[i,j+1])
                 tmp2 = (1-2*s)*malla[i,j]
                 malla[i-1,j] = tmp1+tmp2
+            #un try catch si algun valor es muy pequenio
+            #que se hace NaN
             except:
                 print(f"[{i+1},{j}]")
                 print(f"[{i},{j-1}]")
@@ -74,16 +76,18 @@ def cmap_map(function, cmap):
     return matplotlib.colors.LinearSegmentedColormap('colormap',cdict,1024)
 
 def getplot(x,malla,var_graf,dt,t,nt,fig):
-    bx = fig.add_subplot(122)
+    bx = fig.add_subplot(122)#ubicar fila 1 col 2
+    #cortando verticalmente la malla, para ver el comportamiento
+    #por tiempos
     for i in range(1,malla.shape[0]):
         if(i % (var_graf/dt) == 0):
-            bx.plot(x,malla[malla.shape[0]-i,:],label="T=" + str(round(i*t/malla.shape[0],3)) + 's')
-    
-    bx.legend()
-    bx.grid()
+            bx.plot(x,malla[malla.shape[0]-i,:],label="T=" + str(round(i*t/malla.shape[0],3)) + 's')    
+    bx.legend()#la legenda de cada funcion
+    bx.grid()#los cuadrantes
 
+#el mapa de calor del lado derecho
 def getCalorMap(malla,fig,t0,tf):
-    ax = fig.add_subplot(111)
+    ax = fig.add_subplot(121)#ubicar en fila 1 col 1
 
     dark_jet = cmap_map(lambda x: x*1, matplotlib.cm.jet)
     # ax = plt.subplot()
@@ -92,15 +96,16 @@ def getCalorMap(malla,fig,t0,tf):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     
-    fig.colorbar(im,cax = cax,orientation='vertical')
+    # im.set_clim(-0.7,1)#especificar limites, para que no sean automaticos
+    fig.colorbar(im,cax = cax,orientation='vertical')#la barra de colores
 
 def main():
     f = lambda x: m.sin(m.pi*x)
     f_test = lambda x: 0
-    n=2
+    n = -1
     f1 = lambda x: m.sin(n*m.pi*x)+m.sin(n+1)*m.pi*x
     f2 = lambda x: 4-abs(4*x-1)-abs(4*x-3)
-    heatEquation(0.001,f,0,1,t=1,L=1,gamma=0.2)
+    ecuacionCalor(0.001,f2,0,0,t=2,L=1,gamma=0.6)
 
 if __name__ == "__main__":
     main()
