@@ -5,59 +5,66 @@ import numpy as np
 import math as m
 import time
 
-def waveEquation(xf,tf,v,f,g,phi1,phi2,nx,nt):
-    x0 = 0
-    t0 = 0
-    dx = (xf-x0)/nx
-    dt = (tf-t0)/nt
-    r = (dt**2)/(dx**2)
-    r_2 = r*v**2
+#xf: longitud final
+#tf: tiempo final
+#v: velocidad
+#Condiciones Iniciales: (a <= x <= b)
+    #f: funcion f(x) = u0(x,t)
+    #g: funcion g(x) = u1(x,t)
+#Condiciones Frontera: (t >= 0)
+#phi1: u(a,t)
+#phi1: u(b,t)
+def ecuacionOnda(xf,tf,v,f,g,phi1,phi2,nx,nt):
+    x0 = 0#longitud inicial
+    t0 = 0#tiempo inicial
+    dx = (xf-x0)/nx#es la diferencial en x 
+    dt = (tf-t0)/nt#es la diferencial en t
 
+    r = (dt**2)/(dx**2) #r es la que junta las constantes
+    r_2 = r*v**2 #multiplicando por la velocidad^2
+
+    #numero de graficos para la segunda grafica
     var_graf = 0.1
-
+    #creando los eje T(tiempo) y eje X(longitud)
     x_axis = np.linspace(x0,xf,nx)
     t_axis = np.linspace(t0,tf,nt)
 
-    dx_test = abs(x_axis[0]-x_axis[1])
-    dt_test = abs(t_axis[0]-t_axis[1])
-    # print(dx_test,"<->"*2,dx)
-    # print(dt_test,"<->"*2,dt)
+    #para probar es dx = dx_test
+    # dx_test = abs(x_axis[0]-x_axis[1])
+    # dt_test = abs(t_axis[0]-t_axis[1])
 
     malla = np.zeros((nt,nx))
+    #comprobando el numero de elementos
     # print(len(t_axis),"--"*3,len(malla[:,0]))
+
+    #evaluando las funciones phi1 y phi2
     for j in range(len(t_axis)):
         malla[j, 0] = phi1(t_axis[j])
         malla[j,malla.shape[1]-1] = phi2(t_axis[j]) 
 
+    #comprobando el numero de elementos
     # print(len(x_axis),"--"*3,len(malla[0,:]))
+
+    #evaluando la primera y la antepenultima fila...
     for i in range(len(x_axis)):
         malla[malla.shape[0]-1,i] = f(x_axis[i]) # parte t = 0
         malla[malla.shape[0]-2,i] = g(x_axis[i])#*dt + f(x_axis[i]) #t = 1
-    
-    # print(malla[malla.shape[0]-2,:])
-    
+        
+    #implementado la funcion numerica de la ecuacion de onda
     for j in range(malla.shape[0]-2,0,-1):# tiempo t
         for i in range(1,malla.shape[1]-2):# espacio x
-            malla[j-1,i] = r*(malla[j,i-1] - 2*malla[j,i] + malla[j,i+1]) + 2*malla[j,i] - malla[j+1,i]
-            # malla[j,i+1] = r*(malla[j-1,i] - 2*malla[j,i] + malla[j+1,i]) + 2*malla[j,i] -malla[j,i-1]
+            p1 = r*(malla[j,i-1] - 2*malla[j,i] + malla[j,i+1]) 
+            p2 = 2*malla[j,i] - malla[j+1,i]
+            malla[j-1,i] = p1 + p2
 
-# r_2*(malla[j+1,i]+malla[j-1,i]) + 2*(1-r_2)*malla[j,i] - malla[j,i-1]
-
-    # print(malla)
-    # print(malla[malla.shape[0]-2,:])
-
-    # print(malla[:,malla.shape[1]-1])
-    # print(malla[:,malla.shape[1]-2])
-    # print(malla[:,malla.shape[1]-3])
-    
-    
-
+    #una figura para tener dos subgraficos
     fig = plt.figure()
-
+    #poniendo las dos graficas
     getCalorMap(malla,fig,t0,tf)
     getplot(t_axis,malla,var_graf,dt,tf,nt,fig)
+    #mostrar grafica
     plt.show()
-
+#funcion sacada de la documentacion de matplotlib
 def cmap_map(function, cmap):
     cdict = cmap._segmentdata
     step_dict = {}
@@ -85,42 +92,44 @@ def cmap_map(function, cmap):
 
     return matplotlib.colors.LinearSegmentedColormap('colormap',cdict,1024)
 
-
+#para lograr el 2do grafico
 def getplot(x,malla,var_graf,dx,xf,nx,fig):
-    bx = fig.add_subplot(122)
+    bx = fig.add_subplot(122)#colocarlo a la derecha
+
     for i in range(1,malla.shape[1]):
         if(i % (var_graf/dx) == 0):
             bx.plot(x,malla[:,malla.shape[1]-i],label="T=" + str(round(x[malla.shape[1]-i],3)) + 'x')
-    #malla.shape[0]-i,: #i*xf/malla.shape[1]
-    bx.legend()
-    bx.grid()
+    bx.legend()#mostrar las leyendas de cada funcion
+    bx.grid()#modo malla
 
+#para lograr el 1er grafico
 def getCalorMap(malla,fig,t0,tf):
-    ax = fig.add_subplot(121)
-
+    ax = fig.add_subplot(121)#primero a la izquierda
+    #elegir los colores para el mapa de calor
     dark_jet = cmap_map(lambda x: x*1, matplotlib.cm.jet)
-    # ax = plt.subplot()
     im = ax.imshow(malla,cmap=dark_jet,aspect='auto')
-
+    #para hacer la barra de colores
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
-    # im.set_clim(t0,tf)
+    # im.set_clim(t0,tf)#para especificar el maximo y minimo de la barra de colores
+
     fig.colorbar(im,cax = cax,orientation='vertical')
 
-#def waveEquation(xf,tf,v,f,g,phi1,phi2,nx,nt):
-
 def main():
-    xf = 1
-    tf = 3
-    v = 1
+    xf = 1#longitud final
+    tf = 1#tiempo final
+    v = 1#velocidad 
     #nx < nt
-    nx = 100
-    nt = 300
-    f = lambda x: m.sin(2*x)
-    g = lambda x: 2*m.sin(x)
+    #malla
+    nx = 100#cols
+    nt = 300#filas
+    #condiciones frontera e iniciales
+    f = lambda x: abs(4*x-1)
+    g = lambda x: 0
     phi1 =lambda x: 0
     phi2 = lambda x: 0
-    waveEquation(xf,tf,v,f,g,phi1,phi2,nx,nt)
+    #ecuacion de onda
+    ecuacionOnda(xf,tf,v,f,g,phi1,phi2,nx,nt)
 
 if __name__ == "__main__":
     main()
