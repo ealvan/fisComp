@@ -24,7 +24,7 @@ def ecuacionOnda(xf,tf,v,f,g,phi1,phi2,nx,nt):
     r_2 = r*v**2 #multiplicando por la velocidad^2
 
     #numero de graficos para la segunda grafica
-    var_graf = 0.1
+    var_graf = 0.01
     #creando los eje T(tiempo) y eje X(longitud)
     x_axis = np.linspace(x0,xf,nx)
     t_axis = np.linspace(t0,tf,nt)
@@ -98,8 +98,12 @@ def getplot(x,malla,var_graf,dx,xf,nx,fig):
 
     for i in range(1,malla.shape[1]):
         if(i % (var_graf/dx) == 0):
-            bx.plot(x,malla[:,malla.shape[1]-i],label="T=" + str(round(x[malla.shape[1]-i],3)) + 'x')
-    bx.legend()#mostrar las leyendas de cada funcion
+            bx.plot(x,malla[:,malla.shape[1]-i])
+    bx.set_xlabel('X(eje x)')
+    bx.set_ylabel("T(tiempo)")
+    bx.set_title("Mapa de Transversal de la Ecuacion de Onda.")
+
+    # bx.legend()#mostrar las leyendas de cada funcion
     bx.grid()#modo malla
 
 #para lograr el 1er grafico
@@ -112,7 +116,10 @@ def getCalorMap(malla,fig,t0,tf):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     # im.set_clim(t0,tf)#para especificar el maximo y minimo de la barra de colores
-
+    
+    ax.set_xlabel('X(eje x)')
+    ax.set_ylabel("T(tiempo)")
+    ax.set_title("Mapa de Calor de la Ecuacion de Onda.")
     fig.colorbar(im,cax = cax,orientation='vertical')
 
 def main():

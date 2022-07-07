@@ -79,7 +79,7 @@ numbers=left,showspaces=false,showstringspaces=false}
             \hline
             \header{\mbox{TÍTULO DE LA} PRÁCTICA} & \multicolumn{5}{c}{\header[\footnotesize]{Práctica de Ecuación diferencial de Laplace.}}\\
             \hline
-            \header{\mbox{NÚMERO DE} PRÁCTICA} & {\header[\footnotesize]{05}} & \header{AÑO LECTIVO:} & {\header[\footnotesize]{2022-A}} & \header{NRO. SEMESTRE:} & \header[\footnotesize]{XI}\\
+            \header{\mbox{NÚMERO DE} PRÁCTICA} & {\header[\footnotesize]{07}} & \header{AÑO LECTIVO:} & {\header[\footnotesize]{2022-A}} & \header{NRO. SEMESTRE:} & \header[\footnotesize]{VII}\\
             \hline
             \header{\mbox{FECHA DE} \mbox{PRESENTACIÓN}} & \header{\today} & \header{HORA DE \mbox{PRESENTACIÓN:}} & \multicolumn{3}{c}{\header[\footnotesize]{\currenttime}}\\
             \hline
@@ -89,7 +89,7 @@ numbers=left,showspaces=false,showstringspaces=false}
             \bottomrule
         \end{tabular}
     \end{table}
-    \title{Práctica 6\\Ecuación de calor\\Física Computacional}
+    \title{Práctica 7\\Ecuación de onda\\Física Computacional}
     \date{\vspace{-5ex}}
     \maketitle
     \begin{center}
@@ -126,7 +126,7 @@ numbers=left,showspaces=false,showstringspaces=false}
         \caption{Análisis parte 2}
     \end{figure}
 
-    Como se puede ver en la figura \ref{fig:ana1} y \ref{fig:ana2},
+    Como se puede ver en las imágenes anteriores,
     la malla esta constituida al principio de dos valores predeterminados
     que estan evaluados en las funciones \eq{u_0(x)} y \eq{u_1(x)}(figura \ref{fig:ana1}).
 
@@ -141,7 +141,7 @@ numbers=left,showspaces=false,showstringspaces=false}
     A continuación se muestra una implementación vertical 
     de la matriz que grafica la ecuación de onda.
     
-    \lstinputlisting[label=Archivo de ecuación de Onda]{waveEquation.py}
+    \lstinputlisting[title=Archivo de ecuación de Onda]{waveEquation.py}
 
     \section{Problemas}
     Realice la solución de los siguientes problemas usando la 
@@ -153,6 +153,7 @@ numbers=left,showspaces=false,showstringspaces=false}
         \item Use \eq{a = 1}, \eq{b = 1}, \eq{v = 1}, \eq{f(x) = 2x - 1} y \eq{g(x) = 0}.
         \item Use \eq{a = 1}, \eq{b = 1}, \eq{d = 1}, \eq{v = 1},\eq{f(x) = |4x - 1|} y \eq{g(x) = 0}.
     \end{enumerate}
+
     \subsection{Problema 1}
     Grafique la función de onda, con los siguientes valores:
     \begin{quote}
@@ -165,14 +166,14 @@ numbers=left,showspaces=false,showstringspaces=false}
 def main():
     xf = 1#longitud final
     tf = 1#tiempo final
-    v = 2#velocidad 
+    v = 1#velocidad 
     #nx < nt
     #malla
     nx = 100#cols
     nt = 300#filas
     #condiciones frontera e iniciales
     f = lambda x: m.sin(2*x)
-    g = lambda x: 2*m.sin(x)
+    g = lambda x: 2*m.sin(2*x)
     phi1 =lambda x: 0
     phi2 = lambda x: 0
     #ecuacion de onda
@@ -182,11 +183,26 @@ if __name__ == "__main__":
     main()
 \end{lstlisting}
     \subsubsection{Resultados}
-    \begin{figure}[h]
+    En la siguiente gráfica, se ve como la parte roja es el punto más 
+    alto de la onda, si se ve con detenimiento la barra de colores
+    se observa que los puntos mas rojos estan aproximados a los valores máximos.
+    Y los más próximos a azules, son la parte que rodea la zona roja.
+    
+    También se observa que hay una transición de azul(alrededores) 
+    hacia el rojo(parte de central del gráfico), pasando por celeste, luego el verde 
+    y por ultimo el anaranjado.
+
+    En el gráfico de la derecha, se hace un corte transversal con respecto al eje X, es decir, que se toman
+    posiciones específicas de la matriz de completa, y se ven su comportamiento.
+    Se puede ver claramente, que hay movimientos desde 0 a 80, para luego retornar 0 nuevamente. Esto indica que hemos cortado
+    transversalmente la onda, lo que indica que hay una elevación en la onda. También se puede ver que la parte
+    más alta de la onda esta alrededor de las 100 unidades.
+
+    \begin{figure}[t]
         \centering
         \includegraphics[width=\textwidth]{graph1.png}
     \end{figure}
-
+    \newpage    
     \subsection{Problema 2}
     Grafique la función de onda, con los siguientes valores:
     \begin{quote}
@@ -218,6 +234,9 @@ if __name__ == "__main__":
 \end{lstlisting}
 
     \subsubsection{Resultados}
+    Se puede ver gracias a la gráfica izquierda que la onda tiene tendencia convexa, es decir, que
+    tiende a hundirse hacia abajo(por debajo de 0), donde el punto más bajo estaria alrededor de -12.
+
     \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{graph2.png}
@@ -233,7 +252,7 @@ if __name__ == "__main__":
     A continuación el \emph{main()} para el problema:
 
 \begin{lstlisting}[frame=single]
-    def main():
+def main():
     xf = 1#longitud final
     tf = 1#tiempo final
     v = 1#velocidad 
@@ -254,6 +273,10 @@ if __name__ == "__main__":
 \end{lstlisting}
 
     \subsubsection{Resultados}
+    A continuación, en la gráfica izquierda, se modela como 
+    gradualmente la onda es de forma convexa y que su punto más bajo 
+    esta por debajo de -60.
+
     \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{graph3.png}
@@ -269,7 +292,7 @@ if __name__ == "__main__":
     A continuación el \emph{main()} para el problema:
 
 \begin{lstlisting}[frame=single]
-    def main():
+def main():
     xf = 1#longitud final
     tf = 1#tiempo final
     v = 1#velocidad 
@@ -290,6 +313,11 @@ if __name__ == "__main__":
 \end{lstlisting}
 
     \subsubsection{Resultados}
+    La ecuación de onda graficada en la siguiente imágen, muestra que en un tiempo de 1 segundo,
+    se formaron 4 ondas, dos de la cuales son de forma convexa y las otras dos cóncavas.
+    En la imagen izquierda se muestra los máximos y mínimos del desarrollo de la ecuacion de onda
+    de las cuatro ondas.
+
     \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{graph4.png}
@@ -326,16 +354,15 @@ if __name__ == "__main__":
 \end{lstlisting}
 
     \subsubsection{Resultados}
+    Como se observa, la forma de la onda es convexa, y esta por dejajo de 0. 
+    En la imagen izquierda se puede ver el progreso de la onda a traves del eje X, viendo 
+    que aproximadamente el punto mínimo esta entre -150 y -175.
     \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{graph4.png}
+        \includegraphics[width=\textwidth]{graph5.png}
     \end{figure}
     \section{Anexos}
-    Dejo de anexo el laboratorio faltante del anterior laboratorio.
-    Debido a un problema en internet, no lo pude entregar a tiempo.
-    
-    En el siguiente link esta los archivos de Python y el anterior laboratorio.
-
+    En el siguiente link están los archivos en Python:
     URL:\\ 
     \url{https://drive.google.com/drive/folders/1QtxLqNn8lSFFY1SxxB4cBQNLEMavW-SZ?usp=sharing}
 
