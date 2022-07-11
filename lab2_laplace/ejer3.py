@@ -8,7 +8,7 @@ cts = {
     "V2":0, 
     "V1":1,
     "a":1,
-    "b":1,
+    "b":2,
 }
 #esta funcion implementa la ecuacion del problema 3
 def funcion(x,y):
