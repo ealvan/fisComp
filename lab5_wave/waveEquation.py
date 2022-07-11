@@ -5,6 +5,27 @@ import numpy as np
 import math as m
 import time
 
+
+def getAnaliticalPlot(f,x_items,y_items,a=0,b=1):
+    a = 0
+    b = 1
+    t0=0
+    tf=10
+    f = lambda x,t: m.sin(m.pi*x)*( m.cos(m.pi*t) + m.sin(m.pi*t)/m.pi )
+
+    x_axis = np.linspace(a,b,x_items)
+    y_axis = np.linspace(t0,tf,y_items)
+
+    malla = np.zeros((x_items,y_items))
+    def getCalorMap(arr):
+        plt.imshow(arr,cmap='hot',interpolation='nearest')
+        plt.show()
+    
+    for i in range(0,malla.shape[0]-1):
+        for j in range(0,malla.shape[1]-1):
+            malla[i][j] = f(x_axis[i],y_axis[j])
+
+    getCalorMap(malla)
 #xf: longitud final
 #tf: tiempo final
 #v: velocidad
@@ -64,6 +85,7 @@ def ecuacionOnda(xf,tf,v,f,g,phi1,phi2,nx,nt):
     getplot(t_axis,malla,var_graf,dt,tf,nt,fig)
     #mostrar grafica
     plt.show()
+
 #funcion sacada de la documentacion de matplotlib
 def cmap_map(function, cmap):
     cdict = cmap._segmentdata
@@ -139,4 +161,6 @@ def main():
     ecuacionOnda(xf,tf,v,f,g,phi1,phi2,nx,nt)
 
 if __name__ == "__main__":
-    main()
+    # main()
+    #def getAnaliticalPlot(f,x_items,y_items,a=0,b=1):
+    getAnaliticalPlot(None,100,300,0,1)
