@@ -58,9 +58,9 @@ def Laplace(arriba,abajo,izq,dere, filas, cols,h):
 def main():
     filas  = 100 # nro de filas
     cols   = 100 # nro de columnas de la matriz
-    x_upper= 300 # contorno de arriba
-    x_down = 20 # contorno de abajo
-    l_left = 80 # el lado izquierdo
+    x_upper= 0 # contorno de arriba
+    x_down = 100 # contorno de abajo
+    l_left = 110 # el lado izquierdo
     l_right= 0 # el lado derecho
     times  = 500 # nro de iteraciones
     Laplace(x_upper, x_down, l_left, l_right, filas, cols, times)

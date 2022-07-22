@@ -9,6 +9,7 @@
 \usepackage{commath} % for abs ||
 \usepackage{listings}             % Include the listings-package
 \usepackage{tabs}
+\usepackage{mathtools}
 % \usepackage{colortbl}
 % \usepackage{url}
 \usepackage{hyperref}
@@ -77,7 +78,7 @@ numbers=left,showspaces=false,showstringspaces=false}
             \hline
             \header{ASIGNATURA} & \multicolumn{5}{c}{\header[\footnotesize]{Física Computacional.}}\\
             \hline
-            \header{\mbox{TÍTULO DE LA} PRÁCTICA} & \multicolumn{5}{c}{\header[\footnotesize]{Práctica de Simulación de Monte Carlo.}}\\
+            \header{\mbox{TÍTULO DE LA} PRÁCTICA} & \multicolumn{5}{c}{\header[\footnotesize]{Práctica Método de Monte Carlo.}}\\
             \hline
             \header{\mbox{NÚMERO DE} PRÁCTICA} & {\header[\footnotesize]{08}} & \header{AÑO LECTIVO:} & {\header[\footnotesize]{2022-A}} & \header{NRO. SEMESTRE:} & \header[\footnotesize]{VII}\\
             \hline
@@ -89,7 +90,7 @@ numbers=left,showspaces=false,showstringspaces=false}
             \bottomrule
         \end{tabular}
     \end{table}
-    \title{Práctica 8\\Simulación de Monte Carlo\\Física Computacional}
+    \title{Práctica 8\\Método de Monte Carlo\\Física Computacional}
     \date{\vspace{-5ex}}
     \maketitle
     \begin{center}
@@ -134,7 +135,7 @@ numbers=left,showspaces=false,showstringspaces=false}
     \lstinputlisting[title=Archivo \emph{MonteCarlo.py}]{monteCarlo.py}
 
     \subsection{Resultados}
-    A continuación se muestra la aproximación con la simulación de Monte Carlo y 
+    A continuación se muestra la aproximación con el método de Monte Carlo y 
     la distribución de los valores dados por el algoritmo y sus frecuencias:
     \begin{figure}[h]
         \centering
@@ -142,7 +143,7 @@ numbers=left,showspaces=false,showstringspaces=false}
     \end{figure}
 
     Como se puede ver en la imágen anterior, las barras más altas son 
-    las aproximaciónes más certeras de la simulación de Monte Carlo.
+    las aproximaciónes más certeras del método de Monte Carlo.
 
     A veces, por los numéros aleatorios tienden a estar a un lado del valor exacto
     de la integral, pero generalmente dan un valor aproximado conforme a la cantidad de 
@@ -157,7 +158,7 @@ numbers=left,showspaces=false,showstringspaces=false}
         I[g(X)] = \int_{-1}^{1} e^{x}4 \,dx
     \end{equation}
     \subsection{Programación}
-\begin{lstlisting}
+\begin{lstlisting}	
 def main():
     a = -1
     b = 1
@@ -183,41 +184,43 @@ def main():
     \section{Problema 3}
     Calcule:
     \begin{equation}
-        I[g(X)] = \int_{0}^{1} (1 - e^2)^{\frac{1}{2}} \,dx
+        I[g(X)] = \int_{0}^{1} (1 - e^{x^2})^{\frac{1}{2}} \,dx
     \end{equation}
-    \subsection{Programación****}
+    Dado que:
+
+Es decir:
+\[
+	\begin{aligned}[t]
+		x &\le 0
+	\end{aligned}
+\]
+
+Lo que indica que x debe ser menor a 0,  por lo que si es \eq{x > 0} los valores serán  números imaginarios. Y por lo tanto no es integrable en 0 a 1.
+
+\subsection{Programación}
 \begin{lstlisting}
 def main():
     a = 0
     b = 1
-    f = lambda x: 1
+    f = lambda x: (1-(m.e**x)**2)**(1/2)
     N = 1000
     calcularArea_MonteCarlo(a,b,f,N)
 \end{lstlisting}
     \subsection{Resultados}
-    A continuación se muestra la aproximación con la simulación de Monte Carlo y 
-    la distribución de los valores dados por el algoritmo y sus frecuencias:
+    A continuación se muestra el error dado por el algoritmo implementado:
     \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{ejer3_v2.png}
+        \includegraphics[width=0.7\textwidth]{console_3.png}
     \end{figure}
     
-    En este caso, la distribución de frecuencias dio un valor de 1.
-    Esto es porque, \eq{(1-e^2)^{\frac{1}{2}}} es una constante.
-    Por lo que:
-    \begin{equation}
-        (1-e^2)^{\frac{1}{2}} \int_{0}^{1} \,dx
-    \end{equation}
-
-    Por lo que el resultado es: \eq{(1-e^2)^{\frac{1}{2}}*[1-0]}
-
-    El valor aproximado a la integral es: 2.527658\ldots\\
-    Con 1000 iteraciones.
+    Por lo que el valor no es integrable de 0 a 1.\ldots\\
+	\newpage
     \section{Problema 4}
     Calcule:
     \begin{equation}
         I[g(X)] = \int_{0}^{\infty} x(1 + x^2)^{-2} \,dx
     \end{equation}
+
     \subsection{Programación}
 \begin{lstlisting}
 def main():
@@ -240,7 +243,7 @@ las aproximaciónes más certeras de la simulación de Monte Carlo.
 
 El valor aproximado a la integral es: 0.5\\
 Con 20000 iteraciones.
-
+\newpage
 \section{Problema 5}
     Calcule:
     \begin{equation}
@@ -282,7 +285,7 @@ def main():
 def main():
     a = 0
     b = 100000
-    f = lambda x: m.e**(-1*x)#x*((1+x**2)**(-2))
+    f = lambda x: m.e**(-1*x)
     N = 50000
     calcularArea_MonteCarlo(a,b,f,N)
 \end{lstlisting}
@@ -294,9 +297,8 @@ la distribución de los valores dados por el algoritmo y sus frecuencias:
     \includegraphics[width=0.8\textwidth]{ejer6.png}
 \end{figure}
 
-El valor aproximado a la integral es: 0.91\\
-Que esta muy próximo de 1(valor real de la integral)\\
-Con 10000 iteraciones.
+El valor aproximado a la integral es: 1\\
+Con 50000 iteraciones.
 \section{Anexos}
 En el siguiente link se encuentra los archivos de Python:\\
 \url{https://drive.google.com/drive/folders/1WiiF428zxfC5vnRzmNjqNCvkJYgYGuyK?usp=sharing}

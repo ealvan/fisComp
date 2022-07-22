@@ -9,8 +9,10 @@ def ecuacionCalor(dt,f,alfa,beta,t=1,L=1,gamma=0.5):
     L0 = 0
     t0 = 0
     var_graf = 0.1
-    dx = dt**(1/2)
-
+    dx = m.sqrt(2*gamma*dt)#(dt**(1/2))/(2*gamma)
+    print("dx= ", dx)
+    print("dt= ", dt)
+    
     mx = (L -L0)/dx 
     nt = (t - t0)/dt 
     nt = int(nt)
@@ -100,12 +102,18 @@ def getCalorMap(malla,fig,t0,tf):
     fig.colorbar(im,cax = cax,orientation='vertical')#la barra de colores
 
 def main():
-    f = lambda x: m.sin(m.pi*x)
-    f_test = lambda x: 0
-    n = -1
-    f1 = lambda x: m.sin(n*m.pi*x)+m.sin(n+1)*m.pi*x
-    f2 = lambda x: 4-abs(4*x-1)-abs(4*x-3)
-    ecuacionCalor(0.001,f2,0,0,t=2,L=1,gamma=0.6)
+    # f = lambda x: m.sin(x)
+    # f_test = lambda x: 0
+    n = 0.6
+    #1-3
+    f1 = lambda x: m.cos(x)#m.sin(n*x)+m.sin(n-1)*x
+
+    ecuacionCalor(0.0001,f1,0,0,t=1,L=1,gamma=0.3)
 
 if __name__ == "__main__":
     main()
+
+
+
+    # f2 = lambda x: 4-abs(4*x-1)-abs(4*x-3)
+    # f3 = lambda x: m.cos(x)

@@ -35,10 +35,10 @@ def calcularArea_MonteCarlo(a,b,f,N):
     plt.show()
 
 def main():
-    a = 0
-    b = 1
-    f = lambda x: m.e**(-1*x) 
-    N = 10000
+    a = -1
+    b = 0
+    f = lambda x: (1-(m.e**x)**2)**(1/2)
+    N = 1000
     calcularArea_MonteCarlo(a,b,f,N)
 
 if __name__ == "__main__":
