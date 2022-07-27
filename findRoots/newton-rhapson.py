@@ -2,12 +2,12 @@ import math as m
 
 def f(x):
     #f1 = m.e**(-1*x)
-    fx = lambda x: x**3 +4*x**2 -10
+    fx = lambda x: x**3-2#x**2-2#m.e**x - x#m.e**(-1*x)#x**3 +4*x**2 -10
     return fx(x)
 
 def df(x):
     #f1 = -1*m.e**(-1*x)
-    dfx = lambda x: 3*x**2 + 8*x
+    dfx = lambda x: 3*x**2#2*x#m.e**x - 1#-1*m.e**(-1*x)#3*x**2 + 8*x
     return dfx(x)
 
 def newton_raphson(a):
@@ -31,7 +31,7 @@ def newtonRaphson(guess):
             return mystr
         
         bufferr = current_error
-        current_error = round(abs((sig-a)/sig),5)
+        current_error = round((abs((sig-a)/sig)),5)*100
         mystr += (f'''Iteracion #{i+1})\n''')
         mystr += (f"""x_i={round(a,8)} 
 next x_i+1={round(sig,8)}
@@ -57,5 +57,5 @@ error={current_error}%\n\n""")
         iterMax-=1
 
 if __name__ == "__main__":
-    mystr = newtonRaphson(2)
+    mystr = newtonRaphson(3)
     print(mystr)

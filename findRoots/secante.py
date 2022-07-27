@@ -27,7 +27,7 @@ def secanteMethod(guesses):
             mystr += "\nEl numero siguiente es 0.\n"
             return mystr
 
-        current_error = round(abs((sig-b)/sig),5)
+        current_error = round(abs((sig-b)/sig)*100,5)
         mystr += (f'''Iteracion #{i+1})\n''')
         mystr += (f"""a={round(a,8)} 
 b={round(b,8)} 

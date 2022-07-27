@@ -368,11 +368,54 @@ El resultado de las iteraciones es:
 
 Lo que nos da un resultado aproximado de 1.2599.
 
-    \section{Problema 6***}
+    \section{Problema 6}
     Calcule:
     \begin{equation}
         y = xcosy + ysen(x) - 2
     \end{equation}
+    
+    En este caso es una ecuación que contiene dos variables.
+    Si logramos pasarlo a un lado todas las variables, resulta en:
+    \[
+        xcosy + ysen(x) -y -2 = 0
+    \]
+    Lo que seria una función de dos variables:
+    \[
+        f(x,y) = xcosy + ysen(x) -y -2 = 0
+    \]
+    Claramente esta es una ecuación que puede tener solución
+    en el eje X si la simplificamos, es decir, si suponemos que en 
+    algún punto debe ser 0.
+    Y si analizamos, podemos predecir que cuando 
+    \eq{x=2}, se cumple que \eq{y = 0}.
+    \clearpage
+    Asi que se hizo el siguiente código:
+    \begin{lstlisting}
+def getMultivariable():
+    f = lambda x,y : x*m.cos(y) + y*m.sin(x) -y -2
+    for y in range(-1,4):
+        for x in range(-1,4):
+        #y se mantiene, mientras x se mueve, para encontrar 
+        #la respuesta
+            val = f(x,y)
+            if(val == 0):
+                print(f"x={x} y={y} f(x,y)={val}")
+    \end{lstlisting}
+
+    A continuación se muestra la gráfica hecha en \emph{Geogebra}:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{f6_graph.PNG}
+    \end{figure}
+
+
+
+    El resultado es:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{f6_console.PNG}
+    \end{figure}
+
     \newpage
     \section{Problema 7}
     Calcule:
@@ -423,6 +466,42 @@ if __name__ == "__main__":
     \end{figure}
 
     Lo que nos da un resultado aproximado de 1.36523001.
-
     \clearpage
+    \section{Iteraciones a mano}
+    Ejercicio 1:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,angle=90]{e1.jpg}
+    \end{figure}
+    
+    Ejercicio 2:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth,angle=90]{e2.jpg}
+    \end{figure}
+    \newpage
+    Ejercicio 3:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,angle=90]{e3.jpg}
+    \end{figure}
+    
+    Ejercicio 4:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth,angle=90]{e4.jpg}
+    \end{figure}
+    \newpage
+    Ejercicio 5 y 7:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,angle=90]{e5_7.jpg}
+    \end{figure}
+    \section{Anexos}
+    En el siguiente link se encuentra los scripts de Python
+    y este documento con mayor calidad en las imágenes, 
+    debido a que solo permite la subida de 20Mb la plataforma Dutic.
+    
+    {\small \url{https://drive.google.com/drive/folders/1-G_e6WgrId-9YK-YVnMk98x5YeQWwkgj?usp=sharing}}
+
 \end{document}
