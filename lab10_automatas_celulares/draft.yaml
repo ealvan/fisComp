@@ -1,0 +1,103 @@
+Los automatas celulares son estructuras
+ideales para construir modelos computacionales de
+sistemas din·micos o complejos de una manera
+discreta
+
+Los automatas celulares nacieron con Von Neuman[1] en 1903 al
+intentar modelar una máquina capaz de autoreplicarse. 
+En este sentido también busco reglas las cuales pudieran 
+lograr este fin. Posteriormente Stanishlaw Ulam[1] considero
+un arreglo de celdas en las cuales se podia tener
+uno de los finitos estados permitidos y conforme pasa el tiempo
+las celdas tenian la posibilidad de cambiar de acuerdo a
+funciones de transición.
+
+En este sentido, se creo el término Autómata Celular, el cual se puede definir como[2]
+\emph{un modelo matemático para un sistema dinámico compuesto por un conjunto de celdas o células que adquieren distintos estados o valores}
+
+Se considera por tanto a un Automáta Celular(AC), como un sistema complejo discretizado
+con respecto a sus estados y al tiempo, y tiene la dificultad de no saber con exactitud
+cual es la tendencia y propiedades de un AC dado un estado inicial. Pues a cada unidad de tiempo
+todas las celdas pueden cambiar de estado.
+
+\subsection{Elemento de un AC}
+Un Automata Celular esta denotado por[1]:
+\begin{equation}
+  AC(L, S, N, f)
+\end{equation}
+Donde:
+\begin{enumerate}
+  \item L: es el espacio con una dimension "n", donde se desarrolla el AC.
+  Considerando que cada elemento es una celula.
+  \item S: Es el conjunto finito de estados permitidos en AC, y cada celula debe
+  adoptar uno de estos valores.
+  \item N: Es el conjunto de celulas que se consideran vecinas de una celula.
+  Cuando el espacio es uniforme, la vecindad de cada celula tiene el mismo aspecto(isomorfismo).
+  \item f: Es la funcion de transición entre un estado a otro. Define principalmente como
+  un estado siguiente es influenciado por su vecindad y su estado anterior.  \eq{f: S^N -> S}
+\end{enumerate}
+
+\subsection{Tipos de limites del espacio}
+Segun [1], hay 3 tipos de fronteras en AC:
+\begin{itemize}
+\item Fronteras periódicas: Cuando una celula llega al limite del espacio, la celula que está
+al opuesto extremo del espacio es considerada su vecina, tanto para arriba como para abajo.
+Por lo tanto, la figura de un plano con estas condiciones se llama toroide. 
+\item Fronteras Absorventes: También llamadas fronteras abiertas, son las que consideran que el espacio es
+finito, y por lo tanto las células en el límite del espacio no tienen vecindades en esa dirección.
+\item Fronteras Reflectantes: En este tipo de frontera las células en el limite del espacio toman
+valores dentro del espacio, como si se tratase de un espejo, pues replican los valores que están dentro del espacio.
+\end{itemize}
+
+\section{El juego de la vida.}
+
+El juego de la vida esta implementado en un Automata Celular, que dadas sus condiciones
+iniciales podemos observar como evoluciona el sistema en conjunto.
+Al igual que un AC, podemos decir que tiene los siguientes componentes:
+
+\begin{enumerate}
+  \item L: El espacio esta determinado por NxN, donde \eq{N} es el numero de celulas en 
+  su dimension, que puede ser de una dimension \eq{d} determinada.
+  \item S: El conjunto finitos de estados son:
+    \begin{itemize}
+    \item ON: La célula esta viva.
+    \item OF: La célula esta muerta.
+    \end{itemize}
+  \item N: Se considera que cada célula tendra en total 8 vecinos adyacentes tanto vertical como horizontalmente.
+  \item f: Y que la función de transición tendrá las siguiente 4 reglas:
+  \begin{enumerate}
+    \item Primera regla: Cualquier celda viva con menos de dos vecinas vivas muere.
+    \item Segunda regla: Cualquier celda viva con dos o tres vecinos vivos vive.
+    \item Tercera regla: Cualquier celda viva con más de tres vecinos vivos muere.
+    \item Cuarta regla: Cualquier celda muerta con exactamente tres vecinos vivos se convierte en una celda viva. 
+  \end{enumerate}
+\end{enumerate}
+
+\section{Implementación en Python}
+****************************************************************+++++
+El proceso principal del juego de la vida es:
+\begin{lstlistings}
+Inicializar las celdas en la cuadrícula.
+En cada paso de tiempo en la simulación, para cada celda (i, j) en la cuadrícula, haga lo siguiente:
+Actualice el valor de la celda (i, j) en función de sus vecinos, teniendo en cuenta las condiciones de contorno.
+Actualice la visualización de los valores de la cuadrícula.
+\end{lstlistings}
+
+El siguiente código es sacado por un repositorio de Github\footnote{https://github.com/electronut/pp/blob/master/conway/conway.py}
+creado por Mahesh Venkitachalam.
+%insertar el código de geeksforgeeks
+\lstunputlisting[]{vida_game.py}
+
+
+
+
+
+
+
+
+
+
+
+[1] AutÛmatas Celulares y su AplicaciÛn en ComputaciÛn 
+[2] http://www.cs.us.es/~fsancho/?e=66#:~:text=Un%20aut%C3%B3mata%20celular%20es%20un,valores%20enteros%20a%20intervalos%20regulares. 
+[3] https://www.geeksforgeeks.org/conways-game-life-python-implementation/ 
